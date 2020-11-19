@@ -161,3 +161,138 @@ Exemple1: Prédiction de temps d'arrivée, en temps réel, des navires par un mo
                 }).addTo(map_3c3346354b6b4de191c5baf65bc6b130);
         
 </script>
+
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script>L_PREFER_CANVAS=false; L_NO_TOUCH=false; L_DISABLE_3D=false;</script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.4.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.4.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://rawcdn.githack.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css"/>
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    
+    <meta name="viewport" content="width=device-width,
+        initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>#map_bd312bfed02b4eb1ad317e4e89879ba4 {
+        position: relative;
+        width: 100.0%;
+        height: 100.0%;
+        left: 0.0%;
+        top: 0.0%;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+    <script src="https://rawcdn.githack.com/nezasa/iso8601-js-period/master/iso8601.min.js"></script>
+    <script src="https://rawcdn.githack.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css"/>
+    <link rel="stylesheet" href="https://rawcdn.githack.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.control.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+</head>
+<body>    
+    
+    <div class="folium-map" id="map_bd312bfed02b4eb1ad317e4e89879ba4" ></div>
+</body>
+<script>    
+    
+    
+        var bounds = null;
+    
+
+    var map_bd312bfed02b4eb1ad317e4e89879ba4 = L.map(
+        'map_bd312bfed02b4eb1ad317e4e89879ba4', {
+        center: [49.95967, -2.853847],
+        zoom: 7,
+        maxBounds: bounds,
+        layers: [],
+        worldCopyJump: false,
+        crs: L.CRS.EPSG3857,
+        zoomControl: true,
+        });
+
+
+    
+    var tile_layer_70ffe090d01d441e9d5510cf430b7b98 = L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {
+        "attribution": null,
+        "detectRetina": false,
+        "maxNativeZoom": 18,
+        "maxZoom": 18,
+        "minZoom": 0,
+        "noWrap": false,
+        "opacity": 1,
+        "subdomains": "abc",
+        "tms": false
+}).addTo(map_bd312bfed02b4eb1ad317e4e89879ba4);
+    
+            L.Control.TimeDimensionCustom = L.Control.TimeDimension.extend({
+                _getDisplayDateFormat: function(date){
+                    var newdate = new moment(date);
+                    console.log(newdate)
+                    return newdate.format("YYYY-MM-DD HH:mm:ss");
+                }
+            });
+            map_bd312bfed02b4eb1ad317e4e89879ba4.timeDimension = L.timeDimension({period:"PT1M"});
+            var timeDimensionControl = new L.Control.TimeDimensionCustom({
+  "autoPlay": true,
+  "loopButton": false,
+  "maxSpeed": 200,
+  "minSpeed": 0.1,
+  "playerOptions": {
+    "loop": true,
+    "startOver": true,
+    "transitionTime": 200
+  },
+  "position": "bottomleft",
+  "timeSliderDragUpdate": false
+});
+            map_bd312bfed02b4eb1ad317e4e89879ba4.addControl(this.timeDimensionControl);
+
+            console.log("");
+
+            var geoJsonLayer = L.geoJson({"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-2.853847, 49.95967], [-3.0652304005332613, 49.89230994729797]]}, "properties": {"times": ["2020-09-09T20:26:26", "2020-09-09T21:13:34"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-3.0652304005332613, 49.89230994729797], [-3.260738224449332, 49.81703077680227]]}, "properties": {"times": ["2020-09-09T21:13:34", "2020-09-09T21:58:22"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-3.260738224449332, 49.81703077680227], [-3.456246048365403, 49.74175160630658]]}, "properties": {"times": ["2020-09-09T21:58:22", "2020-09-09T22:44:01"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-3.456246048365403, 49.74175160630658], [-3.651753872281475, 49.666472435810874]]}, "properties": {"times": ["2020-09-09T22:44:01", "2020-09-09T23:29:53"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-3.651753872281475, 49.666472435810874], [-3.897105529204433, 49.568954779456185]]}, "properties": {"times": ["2020-09-09T23:29:53", "2020-09-10T00:29:10"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-3.897105529204433, 49.568954779456185], [-4.183095691004568, 49.45772225712329]]}, "properties": {"times": ["2020-09-10T00:29:10", "2020-09-10T01:38:30"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-4.183095691004568, 49.45772225712329], [-4.4628981067698845, 49.34415448378871]]}, "properties": {"times": ["2020-09-10T01:38:30", "2020-09-10T02:49:15"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-4.4628981067698845, 49.34415448378871], [-4.703450826211546, 49.248282979940996]]}, "properties": {"times": ["2020-09-10T02:49:15", "2020-09-10T03:52:48"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-4.703450826211546, 49.248282979940996], [-4.894223365069586, 49.17685295619439]]}, "properties": {"times": ["2020-09-10T03:52:48", "2020-09-10T04:42:23"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-4.894223365069586, 49.17685295619439], [-5.054606488780311, 49.116386095186385]]}, "properties": {"times": ["2020-09-10T04:42:23", "2020-09-10T05:23:50"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-5.054606488780311, 49.116386095186385], [-5.213650698939778, 49.06177115581]]}, "properties": {"times": ["2020-09-10T05:23:50", "2020-09-10T06:04:15"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-5.213650698939778, 49.06177115581], [-5.394150608178693, 48.997207114158066]]}, "properties": {"times": ["2020-09-10T06:04:15", "2020-09-10T06:49:37"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-5.394150608178693, 48.997207114158066], [-5.619069062598396, 48.91856492399029]]}, "properties": {"times": ["2020-09-10T06:49:37", "2020-09-10T07:46:02"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-5.619069062598396, 48.91856492399029], [-5.5214155451597415, 48.62724967923831]]}, "properties": {"times": ["2020-09-10T07:46:02", "2020-09-10T09:27:20"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-5.5214155451597415, 48.62724967923831], [-5.5970021742424265, 48.50742307575757]]}, "properties": {"times": ["2020-09-10T09:27:20", "2020-09-10T10:11:01"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-5.5970021742424265, 48.50742307575757], [-5.672588803325111, 48.38759647227683]]}, "properties": {"times": ["2020-09-10T10:11:01", "2020-09-10T10:54:24"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-5.672588803325111, 48.38759647227683], [-5.748175432407796, 48.267769868796094]]}, "properties": {"times": ["2020-09-10T10:54:24", "2020-09-10T11:37:49"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-5.748175432407796, 48.267769868796094], [-5.38718961542684, 48.19347640972932]]}, "properties": {"times": ["2020-09-10T11:37:49", "2020-09-10T13:00:37"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-5.38718961542684, 48.19347640972932], [-5.219231099662308, 48.080332308703696]]}, "properties": {"times": ["2020-09-10T13:00:37", "2020-09-10T13:53:04"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-5.219231099662308, 48.080332308703696], [-5.057535431884057, 47.94856024347827]]}, "properties": {"times": ["2020-09-10T13:53:04", "2020-09-10T14:50:32"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-5.057535431884057, 47.94856024347827], [-5.2300109556134124, 47.82960785271796]]}, "properties": {"times": ["2020-09-10T14:50:32", "2020-09-10T15:46:38"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-5.2300109556134124, 47.82960785271796], [-5.067094706072319, 47.74288492389743]]}, "properties": {"times": ["2020-09-10T15:46:38", "2020-09-10T16:33:21"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-5.067094706072319, 47.74288492389743], [-4.895673961398087, 47.66571014797781]]}, "properties": {"times": ["2020-09-10T16:33:21", "2020-09-10T17:19:19"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-4.895673961398087, 47.66571014797781], [-4.706835039276927, 47.60809107982381]]}, "properties": {"times": ["2020-09-10T17:19:19", "2020-09-10T18:06:04"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-4.706835039276927, 47.60809107982381], [-4.512432491465598, 47.546204304808185]]}, "properties": {"times": ["2020-09-10T18:06:04", "2020-09-10T18:54:37"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-4.512432491465598, 47.546204304808185], [-4.309817259734997, 47.483291812763994]]}, "properties": {"times": ["2020-09-10T18:54:37", "2020-09-10T19:44:38"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-4.309817259734997, 47.483291812763994], [-4.130291897329931, 47.42766339051361]]}, "properties": {"times": ["2020-09-10T19:44:38", "2020-09-10T20:29:37"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-4.130291897329931, 47.42766339051361], [-3.971757525714288, 47.37865691314286]]}, "properties": {"times": ["2020-09-10T20:29:37", "2020-09-10T21:09:50"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-3.971757525714288, 47.37865691314286], [-3.8105305540367223, 47.32882537841737]]}, "properties": {"times": ["2020-09-10T21:09:50", "2020-09-10T21:51:35"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-3.8105305540367223, 47.32882537841737], [-3.649254561458333, 47.27890352083333]]}, "properties": {"times": ["2020-09-10T21:51:35", "2020-09-10T22:32:10"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-3.649254561458333, 47.27890352083333], [-3.4868535911944276, 47.23216575221333]]}, "properties": {"times": ["2020-09-10T22:32:10", "2020-09-10T23:13:47"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-3.4868535911944276, 47.23216575221333], [-3.330599944588744, 47.183001878441566]]}, "properties": {"times": ["2020-09-10T23:13:47", "2020-09-10T23:58:03"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-3.330599944588744, 47.183001878441566], [-3.1787143107575746, 47.13381879830808]]}, "properties": {"times": ["2020-09-10T23:58:03", "2020-09-11T00:41:36"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-3.1787143107575746, 47.13381879830808], [-3.0251839173837456, 47.08991485623642]]}, "properties": {"times": ["2020-09-11T00:41:36", "2020-09-11T01:24:17"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-3.0251839173837456, 47.08991485623642], [-2.8751985839011445, 47.04009968010491]]}, "properties": {"times": ["2020-09-11T01:24:17", "2020-09-11T02:08:28"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-2.8751985839011445, 47.04009968010491], [-2.695600311417858, 46.99735577467621]]}, "properties": {"times": ["2020-09-11T02:08:28", "2020-09-11T03:03:01"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-2.695600311417858, 46.99735577467621], [-2.5126828147540965, 47.04203650069972]]}, "properties": {"times": ["2020-09-11T03:03:01", "2020-09-11T04:00:52"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-2.5126828147540965, 47.04203650069972], [-2.374626148715382, 47.1016205425759]]}, "properties": {"times": ["2020-09-11T04:00:52", "2020-09-11T04:47:58"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-2.374626148715382, 47.1016205425759], [-2.2549783735615803, 47.23344419222539]]}, "properties": {"times": ["2020-09-11T04:47:58", "2020-09-11T05:56:31"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-2.2549783735615803, 47.23344419222539], [-2.1292983333333333, 47.30074166666667]]}, "properties": {"times": ["2020-09-11T05:56:31", "2020-09-11T06:40:58"], "style": {"color": "red", "weight": 5}}}, {"type": "Feature", "geometry": {"type": "LineString", "coordinates": [[-2.1292983333333333, 47.30074166666667], [-2.1292983333333333, 47.30074166666666]]}, "properties": {"times": ["2020-09-11T06:40:58", "2020-09-11T06:40:58"], "style": {"color": "red", "weight": 5}}}]}, {
+                    pointToLayer: function (feature, latLng) {
+                        if (feature.properties.icon == 'marker') {
+                            if(feature.properties.iconstyle){
+                                return new L.Marker(latLng, {
+                                    icon: L.icon(feature.properties.iconstyle)});
+                            }
+                            //else
+                            return new L.Marker(latLng);
+                        }
+                        if (feature.properties.icon == 'circle') {
+                            if (feature.properties.iconstyle) {
+                                return new L.circleMarker(latLng, feature.properties.iconstyle)
+                                };
+                            //else
+                            return new L.circleMarker(latLng);
+                        }
+                        //else
+
+                        return new L.Marker(latLng);
+                    },
+                    style: function (feature) {
+                        return feature.properties.style;
+                    },
+                    onEachFeature: function(feature, layer) {
+                        if (feature.properties.popup) {
+                        layer.bindPopup(feature.properties.popup);
+                        }
+                    }
+                })
+
+            var timestamped_geo_json_2bb3df53a6f342e5a797120b00e18631 = L.timeDimension.layer.geoJson(geoJsonLayer,
+                {updateTimeDimension: true,
+                 addlastPoint: false,
+                 duration: undefined,
+                }).addTo(map_bd312bfed02b4eb1ad317e4e89879ba4);
+        
+</script>
